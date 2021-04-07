@@ -1,0 +1,25 @@
+.DS_Store
+node_modules
+/dist
+dist.zip
+dist 2.zip
+dist 3.zip
+dist 4.zip
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
