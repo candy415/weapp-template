@@ -3,6 +3,7 @@ import axios from 'axios'
 import Vue from 'vue'
 // import router from '../router'
 import qs from 'qs'
+import { redirectUrl } from "../utils/index";
 
 const vm = new Vue()
 axios.defaults.baseURL = process.env.VUE_APP_URL
@@ -97,9 +98,9 @@ api.interceptors.response.use(
       if (data.msg) {
         vm.$toast.fail(data.msg);
       }
-      // 授权失效
+      // 授权失效,重定向地址获取微信授权code
       if (res.data.code === 401) {
-        getUrl()
+        redirectUrl()
       }
       return Promise.reject(data)
     }
@@ -114,18 +115,5 @@ api.interceptors.response.use(
     }
   }
 )
-
-// 地址重定向
-function getUrl() {
-  const appid = 'wxc6249c5392e970ad'
-  const url = window.location.href.split('?')[0] // 避免地址中拼接多个code
-  let redirect_uri = encodeURIComponent(url)
-  window.location.href =
-    'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
-    appid +
-    '&redirect_uri=' +
-    redirect_uri +
-    '&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect'
-}
 
 export default api
